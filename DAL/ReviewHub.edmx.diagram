@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="94e50964ed5d4086bc706d6a5f8ceb22" Name="Diagram1">
+        <EntityTypeShape EntityType="ReviewHubModel.advertise_categories" Width="1.5" PointX="6" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReviewHubModel.advertise_comments" Width="1.5" PointX="5.25" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReviewHubModel.advertise_locations" Width="1.5" PointX="10.5" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReviewHubModel.advertise_reacts" Width="1.5" PointX="5.25" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReviewHubModel.advertiser" Width="1.5" PointX="5.25" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReviewHubModel.advertis" Width="1.5" PointX="8.25" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReviewHubModel.company_categories" Width="1.5" PointX="3" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReviewHubModel.review_comments" Width="1.5" PointX="15.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReviewHubModel.review" Width="1.5" PointX="13.5" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReviewHubModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReviewHubModel.user_locations" Width="1.5" PointX="5.25" PointY="24" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReviewHubModel.user_types" Width="1.5" PointX="0.75" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReviewHubModel.user" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReviewHubModel.review_reacts" Width="1.5" PointX="15.75" PointY="8.25" IsExpanded="true" />
+        <AssociationConnector Association="ReviewHubModel.FK_advertises_advertise_categories" ManuallyRouted="false" />
+        <AssociationConnector Association="ReviewHubModel.FK_advertise_comments_advertises" ManuallyRouted="false" />
+        <AssociationConnector Association="ReviewHubModel.FK_advertise_comments_users" ManuallyRouted="false" />
+        <AssociationConnector Association="ReviewHubModel.FK_advertise_locations_advertises" ManuallyRouted="false" />
+        <AssociationConnector Association="ReviewHubModel.FK_advertise_reacts_advertises" ManuallyRouted="false" />
+        <AssociationConnector Association="ReviewHubModel.FK_advertise_reacts_users" ManuallyRouted="false" />
+        <AssociationConnector Association="ReviewHubModel.FK_advertisers_company_categories" ManuallyRouted="false" />
+        <AssociationConnector Association="ReviewHubModel.FK_advertisers_users" ManuallyRouted="false" />
+        <AssociationConnector Association="ReviewHubModel.FK_advertises_users" ManuallyRouted="false" />
+        <AssociationConnector Association="ReviewHubModel.FK_reviews_advertises" ManuallyRouted="false" />
+        <AssociationConnector Association="ReviewHubModel.FK_review_comments_reviews" ManuallyRouted="false" />
+        <AssociationConnector Association="ReviewHubModel.FK_review_comments_users" ManuallyRouted="false" />
+        <AssociationConnector Association="ReviewHubModel.FK_review_reacts_reviews" ManuallyRouted="false" />
+        <AssociationConnector Association="ReviewHubModel.FK_reviews_users" ManuallyRouted="false" />
+        <AssociationConnector Association="ReviewHubModel.FK_user_locations_users" ManuallyRouted="false" />
+        <AssociationConnector Association="ReviewHubModel.FK_users_user_types" ManuallyRouted="false" />
+        <AssociationConnector Association="ReviewHubModel.FK_review_reacts_users" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
