@@ -14,23 +14,32 @@ namespace BLL
         {
             var data = AdvertiseRepo.getAllAdvertise();
             List<AdvertiseModel> ads = new List<AdvertiseModel>();
-            foreach(var item in data)
-            {
-                ads.Add(new AdvertiseModel()
-                {
-                    Id = item.Id,
-                    Title = item.Title,
-                    Description = item.Description,
-                    Image = item.Image,
-                    Created_at = item.Created_at,
-                    ExpirationDate = item.ExpirationDate,
-                    Views = item.Views,
-                    AdvertiseCategory = item.advertise_categories.Name,
-                    UserId = item.UserId,
-                    userName = item.user.Username
-                });
-            }
+            ads = AutoMapper.Mapper.Map<List<advertis>, List<AdvertiseModel>>(data);
             return ads;
         }
+
+        public static AdvertiseDetailsModel get(int id)
+        {
+            var data = AdvertiseRepo.get(id);
+            //AdvertiseModel advertise = AutoMapper.Mapper.Map<advertis, AdvertiseModel>(data);
+            AdvertiseDetailsModel advertise = AutoMapper.Mapper.Map<advertis, AdvertiseDetailsModel>(data);
+            return advertise;
+        }
+        public static List<AdvertiseModel> getMostViewedAdvertise(int adNumbers = 5)
+        {
+            var data = AdvertiseRepo.getAllAdvertise();
+            List<AdvertiseModel> ads = new List<AdvertiseModel>();
+            ads = AutoMapper.Mapper.Map<List<advertis>, List<AdvertiseModel>>(data);
+            var result = ads.OrderBy(ad => ad.Views).Take(adNumbers).ToList();
+            return result;
+        }
+        //public static List<AdvertiseModel> getMostReactedAdvertise(int adNumbers = 5)
+        //{
+        //    var data = AdvertiseRepo.getAllAdvertise();
+        //    List<AdvertiseModel> ads = new List<AdvertiseModel>();
+        //    ads = AutoMapper.Mapper.Map<List<advertis>, List<AdvertiseModel>>(data);
+        //    var result = ads.OrderBy(ad => ).Take(adNumbers).ToList();
+        //    return result;
+        //}
     }
 }

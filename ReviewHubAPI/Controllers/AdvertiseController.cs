@@ -16,6 +16,17 @@ namespace ReviewHubAPI.Controllers
         {
             return AdvertiseProvider.getAllAdvertise();
         }
-        
+        [Route("api/Advertise/{id}")]
+        [HttpGet]
+        public AdvertiseDetailsModel Get(int id)
+        {
+            return AdvertiseProvider.get(id);
+        }
+        [Route("api/Adivertise/MostViewed")]
+        [HttpGet]
+        public List<AdvertiseModel> MostViewed()
+        {
+            return AdvertiseProvider.getMostViewedAdvertise(5);
+        }
     }
 }
