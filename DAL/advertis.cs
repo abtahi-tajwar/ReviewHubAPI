@@ -21,6 +21,7 @@ namespace DAL
             this.advertise_locations = new HashSet<advertise_locations>();
             this.advertise_reacts = new HashSet<advertise_reacts>();
             this.reviews = new HashSet<review>();
+            this.featured_advertises = new HashSet<featured_advertises>();
         }
     
         public int Id { get; set; }
@@ -43,5 +44,7 @@ namespace DAL
         public virtual user user { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<review> reviews { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<featured_advertises> featured_advertises { get; set; }
     }
 }

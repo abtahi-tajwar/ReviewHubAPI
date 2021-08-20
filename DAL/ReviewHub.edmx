@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ReviewHubModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ReviewHubModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="advertise_categories">
           <Key>
             <PropertyRef Name="Id" />
@@ -73,6 +73,14 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="featured_advertises">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdvertiseId" Type="int" Nullable="false" />
+          <Property Name="Text" Type="text" />
         </EntityType>
         <EntityType Name="review_comments">
           <Key>
@@ -270,6 +278,20 @@ warning 6002: The table/view 'ReviewHub.dbo.review_reacts' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_featured_advertises_advertises">
+          <End Role="advertises" Type="Self.advertises" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="featured_advertises" Type="Self.featured_advertises" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="advertises">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="featured_advertises">
+              <PropertyRef Name="AdvertiseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_review_comments_reviews">
           <End Role="reviews" Type="Self.reviews" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -374,6 +396,37 @@ warning 6002: The table/view 'ReviewHub.dbo.review_reacts' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="ReviewHubModelStoreContainer">
           <EntitySet Name="advertise_categories" EntityType="Self.advertise_categories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="advertise_comments" EntityType="Self.advertise_comments" Schema="dbo" store:Type="Tables" />
@@ -382,6 +435,7 @@ warning 6002: The table/view 'ReviewHub.dbo.review_reacts' does not have a prima
           <EntitySet Name="advertisers" EntityType="Self.advertisers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="advertises" EntityType="Self.advertises" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="company_categories" EntityType="Self.company_categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="featured_advertises" EntityType="Self.featured_advertises" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="review_comments" EntityType="Self.review_comments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="reviews" EntityType="Self.reviews" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -431,6 +485,10 @@ warning 6002: The table/view 'ReviewHub.dbo.review_reacts' does not have a prima
             <End Role="users" EntitySet="users" />
             <End Role="advertises" EntitySet="advertises" />
           </AssociationSet>
+          <AssociationSet Name="FK_featured_advertises_advertises" Association="Self.FK_featured_advertises_advertises">
+            <End Role="advertises" EntitySet="advertises" />
+            <End Role="featured_advertises" EntitySet="featured_advertises" />
+          </AssociationSet>
           <AssociationSet Name="FK_review_comments_reviews" Association="Self.FK_review_comments_reviews">
             <End Role="reviews" EntitySet="reviews" />
             <End Role="review_comments" EntitySet="review_comments" />
@@ -464,8 +522,7 @@ warning 6002: The table/view 'ReviewHub.dbo.review_reacts' does not have a prima
             <End Role="users" EntitySet="users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ReviewHubModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -544,6 +601,7 @@ warning 6002: The table/view 'ReviewHub.dbo.review_reacts' does not have a prima
           <NavigationProperty Name="advertise_reacts" Relationship="Self.FK_advertise_reacts_advertises" FromRole="advertises" ToRole="advertise_reacts" />
           <NavigationProperty Name="user" Relationship="Self.FK_advertises_users" FromRole="advertises" ToRole="users" />
           <NavigationProperty Name="reviews" Relationship="Self.FK_reviews_advertises" FromRole="advertises" ToRole="reviews" />
+          <NavigationProperty Name="featured_advertises" Relationship="ReviewHubModel.FK_featured_advertises_advertises" FromRole="advertis" ToRole="featured_advertises" />
         </EntityType>
         <EntityType Name="company_categories">
           <Key>
@@ -953,7 +1011,76 @@ warning 6002: The table/view 'ReviewHub.dbo.review_reacts' does not have a prima
             <End Role="users" EntitySet="users" />
             <End Role="review_reacts" EntitySet="review_reacts" />
           </AssociationSet>
+          <EntitySet Name="featured_advertises" EntityType="ReviewHubModel.featured_advertises" />
+          <AssociationSet Name="FK_featured_advertises_advertises" Association="ReviewHubModel.FK_featured_advertises_advertises">
+            <End Role="advertis" EntitySet="advertises" />
+            <End Role="featured_advertises" EntitySet="featured_advertises" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(ReviewHubModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(ReviewHubModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
         </EntityContainer>
+        <EntityType Name="featured_advertises">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdvertiseId" Type="Int32" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="advertis" Relationship="ReviewHubModel.FK_featured_advertises_advertises" FromRole="featured_advertises" ToRole="advertis" />
+        </EntityType>
+        <Association Name="FK_featured_advertises_advertises">
+          <End Type="ReviewHubModel.advertis" Role="advertis" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ReviewHubModel.featured_advertises" Role="featured_advertises" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="advertis">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="featured_advertises">
+              <PropertyRef Name="AdvertiseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1117,6 +1244,39 @@ warning 6002: The table/view 'ReviewHub.dbo.review_reacts' does not have a prima
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="featured_advertises">
+            <EntityTypeMapping TypeName="ReviewHubModel.featured_advertises">
+              <MappingFragment StoreEntitySet="featured_advertises">
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="AdvertiseId" ColumnName="AdvertiseId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="ReviewHubModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="ReviewHubModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="ReviewHubModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="ReviewHubModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReviewHubModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="ReviewHubModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReviewHubModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="ReviewHubModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="ReviewHubModel.Store.sp_upgraddiagrams" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

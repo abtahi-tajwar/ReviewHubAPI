@@ -41,12 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvertiseCreateModel.cs" />
     <Compile Include="AdvertiseDetailsModel.cs" />
     <Compile Include="AdvertiseLocationModel.cs" />
     <Compile Include="AdvertiseModel.cs" />
     <Compile Include="AdvertiseCategoryModel.cs" />
     <Compile Include="AdvertiseCommentModel.cs" />
     <Compile Include="AdvertiseReactModel.cs" />
+    <Compile Include="FeaturedAdvertiseCreateModel.cs" />
+    <Compile Include="FeaturedAdvertiseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReviewModel.cs" />
   </ItemGroup>

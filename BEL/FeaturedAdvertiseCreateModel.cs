@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace BEL
 {
-    public class AdvertiseCategoryModel
+    public class FeaturedAdvertiseCreateModel
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Image { get; set; }
+        public int AdvertiseId { get; set; }
+        public string Text { get; set; }
     }
 }

@@ -36,6 +36,8 @@
         <AssociationConnector Association="ReviewHubModel.FK_user_locations_users" ManuallyRouted="false" />
         <AssociationConnector Association="ReviewHubModel.FK_users_user_types" ManuallyRouted="false" />
         <AssociationConnector Association="ReviewHubModel.FK_review_reacts_users" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ReviewHubModel.featured_advertises" Width="1.5" PointX="10.5" PointY="15.5" />
+        <AssociationConnector Association="ReviewHubModel.FK_featured_advertises_advertises" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
